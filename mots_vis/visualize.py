@@ -78,7 +78,7 @@ def visualize_sequences(seq_id, tracks, max_frames_seq, img_folder, output_folde
         else:
           category_name = "Ignore"
           color = (0.7, 0.7, 0.7)
-        if obj.class_id == 1 or obj.class_id == 2:  # Don't show boxes or ids for ignore regions
+        if category_name != "Ignore":  # Don't show boxes or ids for ignore regions
           x, y, w, h = rletools.toBbox(obj.mask)
           if draw_boxes:
             import matplotlib.patches as patches
@@ -87,7 +87,7 @@ def visualize_sequences(seq_id, tracks, max_frames_seq, img_folder, output_folde
             ax.add_patch(rect)
           category_name += ":" + str(obj.track_id)
           ax.annotate(category_name, (x + 0.5 * w, y + 0.5 * h), color=color, weight='bold',
-                      fontsize=10, ha='center', va='center', alpha=1.0)
+                      fontsize=14, ha='center', va='center', alpha=1.0)
         binary_mask = rletools.decode(obj.mask)
         apply_mask(img, binary_mask, color)
 
